@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>점심 메뉴 추천</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        .container {
+            width: 720px;
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .title { font-size: 32px; }
+        .menu-title { font-size: 32px; }
+        .menu-img {
+            width: 360px;
+            height: 240px;
+            border-radius: 20px;
+            box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+        }
+        #btn {
+            width: 360px;
+            height: 60px;
+            font-size: 20px;
+            border: none;
+            background-color: royalblue;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #btn:hover {
+            box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+        }
+        #btn:active {
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">오늘 점심은?</h1>
+        <img id="img" src="./img/햄버거.jpg" alt="" class="menu-img">
+        <h3 id="menu" class="menu-title">메뉴이름</h3>
+        <button id="btn" onclick="random()">랜덤 추첨</button>
+    </div>
+    <script>
+        function random(){
+            // alert("버튼 클릭!")
+            // 1~20 사이의 랜덤 수 뽑기
+            const random = Math.floor(Math.random() * 20)
+            const menus = [
+                {name: "샌드위치", img:"https://recipe1.ezmember.co.kr/cache/recipe/2021/11/04/641c9437db7a67ab4d3bd8692283de921.jpg"},
+                {name: "떡볶이", img:"https://s3-ap-northeast-1.amazonaws.com/agreable-shoplink/item/templates/bc4e642e579445eabc05d05a2ba07097-w970-v2.jpg"},
+                {name: "마라탕", img:"https://i.namu.wiki/i/qFWfOHBd0mx7NmNquwtaSbUjnPumXpk5oi1jxNKpWUsv_eGJe44xm9AePkbhQ6hIxTjMtroFaOFPbhBy0MSbNQ.webp"},
+                {name: "돼지국밥", img:"https://wooltariusa.com/cdn/shop/files/1_4f8c6ac5-5dc9-4992-9a44-321fd9925b72.jpg?v=1736189112"},
+                {name: "햄버거", img:"https://wimg.heraldcorp.com/news/cms/2025/08/11/news-p.v1.20250811.9aba6ed2468946cfaa3b15eaf616df6a_P1.jpg"},
+                {name: "냉면", img:"https://static.wtable.co.kr/image/production/service/recipe/2272/cc6b7242-274f-490e-b935-0d6b86aff2c2.jpg?size=800x800"},
+                {name: "샐러드", img:"https://cdn.kormedi.com/news/article/__icsFiles/artimage/2018/08/22/c_km601/salad580.jpg"},
+                {name: "라면", img:"https://i.namu.wiki/i/2mrBrfSDXbBJHLjgyycsAhB0qLvjSZbvswmGtVTAupaEfuQ8Xuzp8wJiXyeDTsqz7blqGRYSjW5mbo1Wc4GP_w.webp"},
+                {name: "김밥", img:"https://recipe1.ezmember.co.kr/cache/recipe/2021/03/16/34fa7191dce74708d9156e94a68eefea1.jpg"},
+                {name: "돈까스", img:"https://i.namu.wiki/i/aN7eMJzy4XAy1yqpL3kHb41MBsSdfPjt1ZqMfDXYk6J3-je6M8dNVOMldpbxhZ-IlO9IfHXMzpZc1tVvat5IjQ.webp"},
+                {name: "초밥", img:"https://www.specialoffers.jcb/kr/tips/japan/shutterstock_475781893.jpg"},
+                {name: "치킨", img:"https://blog.kakaocdn.net/dna/cLGviU/btsIpygmgGI/AAAAAAAAAAAAAAAAAAAAAPB2z4ZUaognT1tLscV_G2AF-vmIeZjvs_VMOWXZr1W5/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1761922799&allow_ip=&allow_referer=&signature=XqqOVEk55uxkS%2BlvF5Kshtt8Osw%3D"},
+                {name: "피자", img:"https://i.namu.wiki/i/umI-heVYVS9miQNqXM13FRUOHHL4l1nzsZgN9XRLFG7nI_7Dyf-Myr6HmiWf9Qd7SAZQz3WYSQHPXXtGAwLTag.webp"},
+                {name: "짜장면", img:"https://image.8dogam.com/resized/product/asset/v1/upload/6833c73eae0949eb8bcbed560c903198.jpeg?type=big&res=3x&ext=jpg"},
+                {name: "탕수육", img:"https://i.namu.wiki/i/DQPzlCdDvbadZasufp6VhKSLDPHU4YlA1f9GbY2fP9nMvjNOSE32JZxL_ysj2duhcUtcWo-cGQvO_qS3rXctJw.webp"},
+                {name: "파스타", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqPnqtXvPAsscU1aWw59WXHnoGl0gicTznEg&s"},
+                {name: "스테이크", img:"https://i.namu.wiki/i/8HjXHmgc7e_5KZVmId552aTeMjiaDhyamd_XO9WUzD0AIG9jK4c6ULrJrec8MZMFiFm8tNO6wbr6sNGJkzbFJw.webp"},
+                {name: "설렁탕", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Seolleongtang2024.jpg/1200px-Seolleongtang2024.jpg"},
+                {name: "갈비탕", img:"https://caremeal.com.au/cdn/shop/files/img_20201201124407_672e1b16.webp?v=1749178041"},
+                {name: "규카츠", img:"https://kurlylog-img.kurly.com/hdims/resize/%3E720x%3E720/quality/85/src/recipe/crispy-juicy-gyukatsu-recipe-step-9.jpg"},
+            ]
+
+            // 필요한 요소 : 이미지, 메뉴이름, 버튼
+            const img = document.getElementById("img")
+            const menu = document.getElementById("menu")
+            const btn = document.getElementById("btn")
+
+            // 버튼 잠금
+            btn.disabled = true
+            btn.style.opacity = 0.5
+
+            // 이미지 바꾸는 효과
+            let rolling = null
+            rolling = setInterval(() => {
+                const r = Math.floor(Math.random()* menus.length)
+                const randomMenu = menus[r]
+                img.src = randomMenu.img
+                menu.textContent = randomMenu.name
+            }, 30)
+
+            // 3초 뒤 추천메뉴로 멈춤
+            setTimeout(()=>{
+                clearInterval(rolling) //이미지 바꾸기 멈춤
+                // 추천 메뉴 선택
+                const pickMenu = menus[random]
+                img.src = pickMenu.img
+                menu.textContent = pickMenu.name
+
+                // 버튼 잠금 해제
+                btn.disabled = false
+                btn.style.opacity = 1
+            }, 3000)
+
+        }
+    </script>
+</body>
+</html>
